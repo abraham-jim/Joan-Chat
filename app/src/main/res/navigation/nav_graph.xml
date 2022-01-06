@@ -12,11 +12,16 @@
         android:label="Inbox"
         tools:layout="@layout/fragment_inbox"/>
 
-        <fragment
-            android:id="@+id/helpFragment"
-            android:name="com.hfad.joanchat.HelpFragment"
-            android:label="Help"
-            tools:layout="@layout/fragment_help"
-        />
+    <fragment
+        android:id="@+id/helpFragment"
+        android:name="com.hfad.joanchat.HelpFragment"
+        android:label="Help"
+        tools:layout="@layout/fragment_help" />
+
+    <fragment
+        android:id="@+id/sentItemFragment"
+        android:name="com.hfad.joanchat.SentItemsFragment"
+        android:label="Sent Item"
+        tools:layout="@layout/fragment_sent_items" />
 
 </navigation>
