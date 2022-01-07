@@ -10,7 +10,9 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.ui.NavigationUI
+import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,12 +29,17 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
+        // Get a reference to the drawer.
+        val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
         val builder = AppBarConfiguration.Builder(navController.graph)
+        // Add the drawer to the AppBarConfiguration
+        builder.setOpenableLayout(drawer)
         val appBarConfiguration = builder.build()
         toolbar.setupWithNavController(navController, appBarConfiguration)
-        //Link the bottom navigation bar to the navigation controller.
-        val bottomNavView = findViewById<BottomNavigationView>(R.id.bottom_nav)
-        bottomNavView.setupWithNavController(navController)
+        val navView = findViewById<NavigationView>(R.id.nav_view)
+        // Enable navigation when an item is clicked by linking the drawer to the navigation controller
+        NavigationUI.setupWithNavController(navView, navController)
+
     }
 
     // Add menu items to the toolbar (in this case the Help item)
@@ -46,11 +53,11 @@ class MainActivity : AppCompatActivity() {
         return item.onNavDestinationSelected(navController)
                 || super.onOptionsItemSelected(item)
     }
-}
+  }
 
 /**
  *      *** When the app runs.***
- * 1) The app is launche and MainActicity gets created.
+ * 1) The app is launched and MainActicity gets created.
  *    -> InboxFragment is added to the navigation host and displayed on the device screen.
  * 2) ManinActivity's onCreateOptionsMenu method runs.
  *    -> It adds the Help menu item defined in menu_toolbar.xml to the toolbar.
@@ -59,4 +66,11 @@ class MainActivity : AppCompatActivity() {
  *    -> It passes navigation for the Help item to the navigation controller.
  * 5) The navigation controller looks for the Help item's ID in navigation graph.
  * 6) The navigation controller replaces InboxFragment with HelpFragment in the navigation host.
+ *
+ * */
+
+/**
+ * //Link the bottom navigation bar to the navigation controller.
+ * val bottomNavView = findViewById<BottomNavigationView>(R.id.bottom_nav)
+    bottomNavView.setupWithNavController(navController)
  * */
